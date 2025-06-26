@@ -1,263 +1,312 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>纪时 - 服务条款</title>
+    <title>Terms of Service - JSTime</title>
     <style>
+        :root {
+            --primary-color: #007AFF;
+            --secondary-color: #5856D6;
+            --background-color: #F2F2F7;
+            --card-background: #FFFFFF;
+            --text-primary: #000000;
+            --text-secondary: #8E8E93;
+            --border-color: #C6C6C8;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            color: var(--text-primary);
+            background: var(--background-color);
         }
-        
+
+        /* 语言切换器 */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: 8px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .lang-btn:hover {
+            background: var(--gradient);
+            color: white;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: var(--card-background);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .navbar .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .navbar .back-btn {
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+
+        /* 主要内容 */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             padding: 40px 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
         }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
+
         .content {
-            background: white;
-            border-radius: 12px;
+            background: var(--card-background);
+            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
         }
-        
-        .section {
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
             margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
         }
-        
-        .section h2 {
-            color: #667eea;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .section h3 {
-            color: #333;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            margin-top: 20px;
-        }
-        
-        .section p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-        
-        .section ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .section li {
-            margin-bottom: 8px;
-        }
-        
-        .highlight {
-            background-color: #f8f9fa;
+
+        .last-updated {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-style: italic;
             padding: 15px;
-            border-left: 4px solid #667eea;
+            background: var(--background-color);
+            border-radius: 12px;
+        }
+
+        h2 {
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin: 30px 0 20px 0;
+            font-size: 1.5em;
+        }
+
+        h3 {
+            color: var(--text-primary);
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ul {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .important {
+            background: #FFF3CD;
+            border: 1px solid #FFEAA7;
+            padding: 20px;
+            border-radius: 12px;
             margin: 20px 0;
         }
-        
-        .footer {
-            text-align: center;
-            padding: 30px;
-            color: #666;
-            border-top: 1px solid #eee;
-            margin-top: 40px;
+
+        .contact-info {
+            background: var(--background-color);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
         }
-        
-        .footer a {
-            color: #667eea;
+
+        strong {
+            color: var(--primary-color);
+        }
+
+        a {
+            color: var(--primary-color);
             text-decoration: none;
-            margin: 0 15px;
         }
-        
-        .footer a:hover {
+
+        a:hover {
             text-decoration: underline;
         }
-        
+
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+            .content {
+                padding: 25px;
+                margin: 20px 10px;
             }
-            
-            .header h1 {
+
+            h1 {
                 font-size: 2em;
             }
-            
-            .content {
-                padding: 20px;
+
+            .navbar .container {
+                padding: 0 15px;
+            }
+
+            .language-switcher {
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 语言切换器 -->
+    <div class="language-switcher">
+        <a href="terms-of-service-zh.html" class="lang-btn">中文</a>
+        <a href="terms-of-service.html" class="lang-btn" style="background: var(--gradient); color: white;">English</a>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="JSTime.png" alt="JSTime">
+                <span>JSTime</span>
+            </a>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
     <div class="container">
-        <div class="header">
-            <h1>服务条款</h1>
-            <p>纪时 JSTime 应用服务条款</p>
-        </div>
-
         <div class="content">
-            <div class="highlight">
-                <p><strong>生效日期：</strong>2025年6月1日</p>
-                <p><strong>最后更新：</strong>2025年6月1日</p>
+            <h1>Terms of Service</h1>
+            <div class="last-updated">Last updated: June 26, 2025</div>
+
+            <div class="important">
+                <strong>Important Notice:</strong> By downloading, installing, or using the JSTime application, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use this application.
             </div>
 
-            <div class="section">
-                <h2>1. 接受条款</h2>
-                <p>欢迎使用纪时（JSTime）应用程序。通过下载、安装或使用本应用程序，您同意受本服务条款的约束。如果您不同意这些条款，请不要使用本应用程序。</p>
-            </div>
+            <h2>1. Acceptance of Terms</h2>
+            <p>These Terms of Service ("Terms") constitute a legally binding agreement between you and JSTime ("we", "app"). By using this app, you agree to comply with these Terms.</p>
 
-            <div class="section">
-                <h2>2. 服务描述</h2>
-                <p>纪时是一款专注于重要时刻记录的移动应用程序，提供以下主要功能：</p>
-                <ul>
-                    <li>事件创建和管理</li>
-                    <li>智能提醒功能</li>
-                    <li>桌面小组件</li>
-                    <li>个性化主题</li>
-                    <li>iCloud数据同步（高级版）</li>
-                    <li>隐私保护功能</li>
-                </ul>
-            </div>
+            <h2>2. App Description</h2>
+            <p>JSTime is a countdown application that helps users record and remind important moments. The app offers both free and premium subscription versions.</p>
 
-            <div class="section">
-                <h2>3. 用户账户和责任</h2>
-                <h3>3.1 用户责任</h3>
-                <p>您有责任：</p>
-                <ul>
-                    <li>确保您提供的信息准确、完整</li>
-                    <li>保护您的设备和账户安全</li>
-                    <li>遵守所有适用的法律法规</li>
-                    <li>不滥用或误用本应用程序</li>
-                </ul>
+            <h2>3. Premium Subscription Service</h2>
+            <h3>3.1 Subscription Terms</h3>
+            <ul>
+                <li><strong>Auto-Renewal:</strong> Premium subscriptions will auto-renew unless you turn off auto-renewal at least 24 hours before the end of the current billing period.</li>
+                <li><strong>Payment:</strong> Payment will be charged to your Apple ID account upon confirmation of purchase.</li>
+                <li><strong>Manage Subscriptions:</strong> You can manage subscriptions and turn off auto-renewal in Settings > Apple ID > Subscriptions on your device.</li>
+                <li><strong>No Refunds:</strong> Subscription fees for the current billing period are non-refundable.</li>
+            </ul>
 
-                <h3>3.2 禁止行为</h3>
-                <p>您不得：</p>
-                <ul>
-                    <li>逆向工程、反编译或反汇编本应用程序</li>
-                    <li>尝试绕过应用程序的安全措施</li>
-                    <li>使用本应用程序进行任何非法活动</li>
-                    <li>干扰或破坏应用程序的正常运行</li>
-                </ul>
-            </div>
+            <h3>3.2 Free Trial</h3>
+            <p>If a free trial is offered, it will automatically convert to a paid subscription after the trial period ends, unless you cancel before the trial period expires.</p>
 
-            <div class="section">
-                <h2>4. 订阅服务</h2>
-                <h3>4.1 高级版订阅</h3>
-                <p>本应用程序提供高级版年费订阅服务，包含额外功能和服务。订阅费用将通过您的Apple ID账户收取。</p>
+            <h2>4. User Responsibilities</h2>
+            <ul>
+                <li>You must be at least 13 years old to use this app</li>
+                <li>You are responsible for protecting your device and account information</li>
+                <li>You may not use the app for any illegal or unauthorized purpose</li>
+                <li>You may not reverse engineer, decompile, or attempt to extract source code from the app</li>
+            </ul>
 
-                <h3>4.2 自动续费</h3>
-                <p>订阅将自动续费，除非您在当前订阅期结束前至少24小时取消订阅。您可以在iPhone设置中管理订阅。</p>
+            <h2>5. Privacy and Data</h2>
+            <p>We value your privacy. For information about how we collect, use, and protect your information, please see our <a href="privacy-policy.html">Privacy Policy</a>.</p>
 
-                <h3>4.3 退款政策</h3>
-                <p>订阅费用的退款按照Apple App Store的退款政策执行。我们不直接处理退款请求。</p>
-            </div>
+            <h2>6. Intellectual Property</h2>
+            <p>The JSTime app and all its content, features, and functionality are owned by the developer and protected by copyright, trademark, and other intellectual property laws.</p>
 
-            <div class="section">
-                <h2>5. 知识产权</h2>
-                <p>本应用程序及其所有内容、功能和特性（包括但不限于所有信息、软件、文本、显示、图像、视频和音频，以及设计、选择和排列）均为我们或我们的许可方所有，受中华人民共和国和国际版权、商标、专利、商业秘密和其他知识产权或专有权利法律保护。</p>
-            </div>
+            <h2>7. Disclaimer</h2>
+            <p>This app is provided "as is" without any express or implied warranties. We do not guarantee that the app will operate uninterrupted or be completely error-free.</p>
 
-            <div class="section">
-                <h2>6. 隐私保护</h2>
-                <p>我们非常重视您的隐私。我们的隐私政策详细说明了我们如何收集、使用和保护您的信息。使用本应用程序即表示您同意我们的隐私政策。</p>
-                <p>请查看我们的<a href="privacy.html" style="color: #667eea;">隐私政策</a>了解更多信息。</p>
-            </div>
+            <h2>8. Limitation of Liability</h2>
+            <p>To the fullest extent permitted by law, we shall not be liable for any direct, indirect, incidental, special, or consequential damages.</p>
 
-            <div class="section">
-                <h2>7. 免责声明</h2>
-                <p>本应用程序按"现状"提供，不提供任何明示或暗示的保证。我们不保证：</p>
-                <ul>
-                    <li>应用程序将满足您的特定需求</li>
-                    <li>应用程序将不间断或无错误运行</li>
-                    <li>通过应用程序获得的结果将准确或可靠</li>
-                    <li>应用程序中的任何错误都将得到纠正</li>
-                </ul>
-            </div>
+            <h2>9. Changes to Terms</h2>
+            <p>We reserve the right to modify these terms at any time. Significant changes will be communicated to users through in-app notifications or other means. Continued use of the app constitutes acceptance of the modified terms.</p>
 
-            <div class="section">
-                <h2>8. 责任限制</h2>
-                <p>在任何情况下，我们都不对因使用或无法使用本应用程序而产生的任何间接、偶然、特殊、后果性或惩罚性损害承担责任，包括但不限于利润损失、数据丢失或业务中断，无论是基于合同、侵权或任何其他法律理论。</p>
-            </div>
+            <h2>10. Termination</h2>
+            <p>We reserve the right to terminate or suspend services when users violate these terms. You may also terminate this agreement at any time by stopping use of the app.</p>
 
-            <div class="section">
-                <h2>9. 服务变更和终止</h2>
-                <h3>9.1 服务变更</h3>
-                <p>我们保留随时修改或终止本应用程序（或其任何部分）的权利，无论是否通知。</p>
+            <h2>11. Governing Law</h2>
+            <p>These terms are governed by the laws of [Your Country/Region] without regard to conflict of law principles.</p>
 
-                <h3>9.2 账户终止</h3>
-                <p>我们可能因任何原因（包括但不限于违反本条款）随时暂停或终止您的账户。</p>
-            </div>
-
-            <div class="section">
-                <h2>10. 条款变更</h2>
-                <p>我们可能会不时更新这些服务条款。当我们进行更改时，我们将更新页面顶部的"最后更新"日期。我们建议您定期查看本页面以了解任何更改。继续使用本应用程序即表示您接受修订后的条款。</p>
-            </div>
-
-            <div class="section">
-                <h2>11. 适用法律</h2>
-                <p>本条款受中华人民共和国法律管辖并按其解释。因本条款引起的任何争议应通过友好协商解决；协商不成的，应提交有管辖权的人民法院解决。</p>
-            </div>
-<!--
-            <div class="section">
-                <h2>12. 联系我们</h2>
-                <p>如果您对这些服务条款有任何疑问，请通过以下方式联系我们：</p>
-                <ul>
-                    <li>邮箱：<a href="mailto:support@jstime.app" style="color: #667eea;">support@jstime.app</a></li>
-                    <li>法律事务：<a href="mailto:legal@jstime.app" style="color: #667eea;">legal@jstime.app</a></li>
-                </ul>
-            </div>
-        -->
-            <div class="section">
-                <h2>12. 其他条款</h2>
-                <h3>12.1 完整协议</h3>
-                <p>本服务条款构成您与我们之间关于使用本应用程序的完整协议。</p>
-
-                <h3>12.2 可分割性</h3>
-                <p>如果本条款的任何条款被认定为无效或不可执行，其余条款将继续有效。</p>
-
-                <h3>12.3 不弃权</h3>
-                <p>我们未能执行本条款的任何权利或条款不构成对该权利或条款的弃权。</p>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>&copy; 2025 纪时 JSTime. 保留所有权利.</p>
-            <div style="margin-top: 15px;">
-                <a href="support.html">技术支持</a>
-                <a href="privacy.html">隐私政策</a>
+            <div class="contact-info">
+                <h2>12. Contact Us</h2>
+                <p>If you have any questions about these Terms of Service, please contact us:</p>
+                <p><strong>Feedback Method:</strong> Please search for "JSTime" in the App Store and leave a comment on the app page. We will respond promptly to address your concerns</p>
+                <p><strong>App Name:</strong> JSTime</p>
+                <p><strong>Response Time:</strong> We will respond to your inquiry within 7 business days</p>
+                <p><strong>Support Types:</strong> Technical support, account issues, refund assistance, feature suggestions</p>
             </div>
         </div>
     </div>
 </body>
-</html> 
+</html>

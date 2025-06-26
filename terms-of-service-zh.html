@@ -1,1 +1,428 @@
-a
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务条款 - 纪时JSTime</title>
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --secondary-color: #5856D6;
+            --background-color: #F2F2F7;
+            --card-background: #FFFFFF;
+            --text-primary: #000000;
+            --text-secondary: #8E8E93;
+            --border-color: #C6C6C8;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background-color);
+        }
+
+        /* 语言切换器 */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: 8px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .lang-btn:hover {
+            background: var(--gradient);
+            color: white;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: var(--card-background);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .navbar .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .navbar .back-btn {
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+
+        /* 主要内容 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .content {
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-style: italic;
+            padding: 15px;
+            background: var(--background-color);
+            border-radius: 12px;
+        }
+
+        h2 {
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin: 30px 0 20px 0;
+            font-size: 1.5em;
+        }
+
+        h3 {
+            color: var(--text-primary);
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ul {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .important {
+            background: #E7F3FF;
+            border: 1px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: #FFF3CD;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: #FFE5E5;
+            border: 1px solid #FF6B6B;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .subscription-info {
+            background: #E8F5E8;
+            border: 1px solid #4CAF50;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .contact-info {
+            background: var(--background-color);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        strong {
+            color: var(--primary-color);
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .content {
+                padding: 25px;
+                margin: 20px 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .navbar .container {
+                padding: 0 15px;
+            }
+
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 语言切换器 -->
+    <div class="language-switcher">
+        <a href="terms-of-service-zh.html" class="lang-btn" style="background: var(--gradient); color: white;">中文</a>
+        <a href="terms-of-service.html" class="lang-btn">English</a>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="JSTime.png" alt="纪时JSTime">
+                <span>纪时JSTime</span>
+            </a>
+            <a href="index.html" class="back-btn">← 返回主页</a>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <div class="container">
+        <div class="content">
+            <h1>纪时JSTime 服务条款</h1>
+            <div class="last-updated">最后更新：2025年6月26日</div>
+
+            <div class="important">
+                <strong>服务承诺：</strong>欢迎使用纪时JSTime！请仔细阅读以下服务条款，这些条款约束您对我们应用程序的使用。
+            </div>
+
+            <h2>1. 服务接受</h2>
+            <p>通过下载、安装或使用纪时JSTime应用程序，您同意接受并遵守这些服务条款。如果您不同意这些条款，请不要使用我们的服务。</p>
+
+            <h2>2. 服务描述</h2>
+            <p>纪时JSTime是一款智能倒计时和提醒应用，主要功能包括：</p>
+            <ul>
+                <li><strong>智能倒计时：</strong>创建和管理重要事件的倒计时</li>
+                <li><strong>智能提醒：</strong>自定义通知和提醒功能</li>
+                <li><strong>数据同步：</strong>通过iCloud同步您的数据（可选）</li>
+                <li><strong>个性化主题：</strong>多种主题和界面自定义选项</li>
+                <li><strong>桌面小组件：</strong>iOS桌面小组件支持</li>
+            </ul>
+
+            <h2>3. 用户账户和责任</h2>
+            <h3>3.1 账户管理</h3>
+            <ul>
+                <li>您有责任保护您的设备和Apple ID的安全</li>
+                <li>您同意不与他人分享您的账户信息</li>
+                <li>您需要确保您提供的信息准确且最新</li>
+            </ul>
+
+            <h3>3.2 用户行为</h3>
+            <p>您同意不会：</p>
+            <ul>
+                <li>将应用用于任何非法或未经授权的目的</li>
+                <li>尝试破解、逆向工程或篡改应用</li>
+                <li>发布任何有害、威胁或不当的内容</li>
+                <li>干扰应用的正常运行</li>
+            </ul>
+
+            <h2>4. 订阅服务</h2>
+            <div class="subscription-info">
+                <h3>4.1 付费订阅</h3>
+                <p>纪时JSTime提供付费高级功能订阅，包括：</p>
+                <ul>
+                    <li><strong>无限事件：</strong>创建无限数量的倒计时事件</li>
+                    <li><strong>高级主题：</strong>专属主题和自定义选项</li>
+                    <li><strong>智能提醒：</strong>高级提醒和通知功能</li>
+                </ul>
+            </div>
+
+            <h3>4.2 订阅条款</h3>
+            <ul>
+                <li><strong>付款：</strong>订阅费用将从您的Apple ID账户扣除</li>
+                <li><strong>自动续订：</strong>订阅将自动续订，除非您在当前订阅期结束前至少24小时取消</li>
+                <li><strong>管理订阅：</strong>您可以在iPhone设置 > Apple ID > 订阅中管理或取消订阅</li>
+                <li><strong>价格变更：</strong>我们保留调整订阅价格的权利，价格变更将提前通知</li>
+            </ul>
+
+            <h3>4.3 退款政策</h3>
+            <ul>
+                <li>所有订阅购买通过Apple App Store处理</li>
+                <li>退款请求需要通过Apple的退款流程进行</li>
+                <li>一般情况下，已使用的订阅期间不予退款</li>
+                <li>特殊情况可以通过App Store评论联系我们协助处理</li>
+            </ul>
+
+            <h2>5. 隐私和数据保护</h2>
+            <p>您的隐私对我们很重要。我们的数据收集和使用实践详见我们的<a href="privacy-policy-zh.html">隐私政策</a>。关键要点包括：</p>
+            <ul>
+                <li>我们主要在您的设备本地存储数据</li>
+                <li>iCloud同步是可选的，由Apple管理</li>
+                <li>我们不会出售您的个人信息</li>
+                <li>您可以随时请求删除您的数据</li>
+            </ul>
+
+            <h2>6. 知识产权</h2>
+            <h3>6.1 应用所有权</h3>
+            <p>纪时JSTime应用程序及其所有内容、功能和特性均为我们的专有财产，受版权、商标和其他知识产权法律保护。</p>
+
+            <h3>6.2 用户内容</h3>
+            <p>您保留对自己创建内容的所有权，但授予我们必要的许可来提供服务，包括：</p>
+            <ul>
+                <li>在您的设备上存储和显示您的内容</li>
+                <li>通过iCloud同步您的内容（如果启用）</li>
+                <li>提供技术支持时访问相关内容</li>
+            </ul>
+
+            <h2>7. 服务可用性</h2>
+            <ul>
+                <li><strong>服务中断：</strong>我们努力确保服务的可用性，但可能因维护、更新或技术问题而暂时中断</li>
+                <li><strong>设备兼容性：</strong>服务需要兼容的iOS设备和操作系统版本</li>
+                <li><strong>网络要求：</strong>某些功能可能需要互联网连接</li>
+            </ul>
+
+            <h2>8. 免责声明</h2>
+            <div class="warning">
+                <p><strong>重要声明：</strong>纪时JSTime按"现状"提供，不提供任何明示或暗示的保证。我们不保证：</p>
+                <ul>
+                    <li>服务将不间断或无错误</li>
+                    <li>服务将满足您的所有要求</li>
+                    <li>所有错误都将被修复</li>
+                    <li>服务不会受到病毒或其他有害组件的影响</li>
+                </ul>
+            </div>
+
+            <h2>9. 责任限制</h2>
+            <p>在法律允许的最大范围内，我们不承担以下责任：</p>
+            <ul>
+                <li>因使用或无法使用服务而造成的任何直接、间接、偶然或后果性损害</li>
+                <li>数据丢失或损坏</li>
+                <li>业务中断或利润损失</li>
+                <li>第三方行为造成的损害</li>
+            </ul>
+
+            <h2>10. 服务终止</h2>
+            <h3>10.1 您的终止权</h3>
+            <p>您可以随时停止使用我们的服务并删除应用程序。</p>
+
+            <h3>10.2 我们的终止权</h3>
+            <p>在以下情况下，我们可能暂停或终止您的访问：</p>
+            <ul>
+                <li>违反这些服务条款</li>
+                <li>进行欺诈或非法活动</li>
+                <li>长期不活跃</li>
+                <li>技术或安全原因</li>
+            </ul>
+
+            <h2>11. 条款修改</h2>
+            <p>我们可能会不时更新这些服务条款。重大变更将通过以下方式通知：</p>
+            <ul>
+                <li>应用内通知</li>
+                <li>App Store描述更新</li>
+            </ul>
+            <p>继续使用服务即表示您接受修改后的条款。</p>
+
+            <h2>12. 争议解决</h2>
+            <h3>12.1 适用法律</h3>
+            <p>这些条款受中华人民共和国法律管辖。</p>
+
+            <h3>12.2 争议处理</h3>
+            <p>我们鼓励通过友好协商解决争议。如无法协商解决，争议将提交有管辖权的人民法院解决。</p>
+
+            <h2>13. 可分割性</h2>
+            <p>如果这些条款的任何部分被认定为无效或不可执行，其余部分仍将保持完全有效。</p>
+
+            <div class="contact-info">
+                <h2>14. 联系我们</h2>
+                <p>如果您对这些服务条款有任何问题或疑虑，请联系我们：</p>
+                <p><strong>反馈方式：</strong>请在App Store中搜索"纪时JSTime"，在应用页面写下您的评论，我们会及时回复并处理您的问题</p>
+                <p><strong>应用名称：</strong>纪时JSTime</p>
+                <p><strong>回复时间：</strong>我们将在7个工作日内回复您的询问</p>
+                <p><strong>支持类型：</strong>技术支持、账户问题、退款协助、功能建议</p>
+            </div>
+
+            <div class="important">
+                <p><strong>感谢您选择纪时JSTime！</strong>我们致力于为您提供最佳的倒计时和提醒体验。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
