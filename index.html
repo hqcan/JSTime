@@ -2,22 +2,26 @@
 <html lang="zh-CN" id="html-root">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title id="page-title">纪时JSTime - 记录美好时光的每一刻</title>
     <meta name="description" content="纪时JSTime是一款优雅的倒计时应用，帮助您记录和提醒人生中的重要时刻。支持iCloud同步、主题切换、智能提醒等功能。">
     <meta name="keywords" content="倒计时,提醒,时间管理,纪时,JSTime,iOS应用">
     <style>
         :root {
-            --primary-color: #007AFF;
-            --secondary-color: #5856D6;
-            --accent-color: #FF9500;
-            --background-color: #F2F2F7;
+            --primary-color: #0A84FF;
+            --secondary-color: #5E5CE6;
+            --accent-color: #FF9F0A;
+            --background-color: #F5F5F7;
             --card-background: #FFFFFF;
-            --text-primary: #000000;
-            --text-secondary: #8E8E93;
-            --border-color: #C6C6C8;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --border-color: #E5E5EA;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 14px 40px rgba(0, 0, 0, 0.12);
+            --gradient: linear-gradient(135deg, var(--primary-color), #30C8FF);
+            --gradient-accent: linear-gradient(135deg, var(--accent-color), #FFD60A);
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
 
         * {
@@ -25,13 +29,20 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--background-color);
             overflow-x: hidden;
+            position: relative;
         }
 
         /* 语言切换按钮 */
@@ -40,43 +51,50 @@
             top: 20px;
             right: 20px;
             z-index: 1000;
-            background: var(--card-background);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
             padding: 8px;
             box-shadow: var(--shadow);
             display: flex;
             gap: 8px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .lang-btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 12px;
+            border-radius: 25px;
             background: transparent;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.95em;
+            letter-spacing: 0.2px;
         }
 
         .lang-btn.active {
             background: var(--gradient);
             color: white;
+            box-shadow: 0 4px 10px rgba(10, 132, 255, 0.3);
         }
 
-        .lang-btn:hover {
-            background: var(--primary-color);
-            color: white;
+        .lang-btn:hover:not(.active) {
+            background: rgba(10, 132, 255, 0.1);
+            color: var(--primary-color);
         }
 
         /* 头部区域 */
         .hero {
             background: var(--gradient);
             color: white;
-            padding: 120px 20px 80px;
+            padding: 150px 20px 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            clip-path: ellipse(100% 70% at 50% 30%);
         }
 
         .hero::before {
@@ -88,6 +106,7 @@
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
             animation: float 20s ease-in-out infinite;
+            pointer-events: none; /* 确保背景不会干扰点击行为 */
         }
 
         @keyframes float {
@@ -101,7 +120,7 @@
             max-width: 800px;
             margin: 0 auto;
         }
-
+        
         .app-icon {
             width: 120px;
             height: 120px;
@@ -128,17 +147,36 @@
         }
 
         .hero h1 {
-            font-size: 3.5em;
-            font-weight: 700;
+            font-size: 4em;
+            font-weight: 800;
             margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+            letter-spacing: -0.02em;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 30%;
+            width: 40%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 2px;
         }
 
         .hero .subtitle {
-            font-size: 1.3em;
+            font-size: 1.5em;
             margin-bottom: 40px;
-            opacity: 0.9;
+            opacity: 0.95;
             font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
         }
 
         .download-badges {
@@ -148,6 +186,31 @@
             flex-wrap: wrap;
         }
 
+        .app-store-buttons {
+            margin-top: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .app-store-button {
+            display: inline-block;
+            margin: 0 10px;
+            position: relative;
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .app-store-button img {
+            height: 60px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .app-store-button:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
         .badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.15);
@@ -181,15 +244,34 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: 60px;
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 70px;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.03em;
+            position: relative;
+            display: block;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
-
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            margin: 0 auto; /* 使用margin:auto实现居中 */
+            border-radius: 2px;
+        }
+        
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -199,30 +281,59 @@
 
         .feature-card {
             background: var(--card-background);
-            border-radius: 20px;
-            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            padding: 50px 30px;
             text-align: center;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            transition: var(--transition);
             border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: var(--transition);
+            z-index: -1;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-card:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: var(--gradient);
-            border-radius: 20px;
-            margin: 0 auto 20px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 38px;
             color: white;
+            box-shadow: 0 10px 25px rgba(10, 132, 255, 0.3);
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .feature-card h3 {
@@ -239,84 +350,242 @@
         /* 法律文档区域 */
         .legal-section {
             background: var(--background-color);
-            padding: 80px 0;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .legal-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="20" cy="20" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="60" cy="20" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="100" cy="20" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="20" cy="60" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="60" cy="60" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="100" cy="60" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="20" cy="100" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="60" cy="100" r="3" fill="%23f0f0f5" opacity="0.5"/><circle cx="100" cy="100" r="3" fill="%23f0f0f5" opacity="0.5"/></svg>');
+            opacity: 0.7;
         }
 
         .legal-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .legal-card {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            height: auto; /* 改为自适应高度 */
+            min-height: 280px; /* 最小高度 */
+            position: relative;
+            padding-bottom: 80px;
+            overflow: visible; /* 允许内容溢出 */
+            box-sizing: border-box; /* 确保内边距不影响总宽度 */
+        }
+        
+        .legal-card-content {
+            flex-grow: 1;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .legal-card-content h3 {
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            flex-shrink: 0;
+            line-height: 1.3;
+            height: auto;
+        }
+        
+        .legal-link-container {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .legal-card-content p {
+            margin-bottom: 5px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 减少行数确保内容不会被截断 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 3em; /* 限制最大高度 */
+        }
+        
+        @media (max-width: 900px) {
+            .legal-cards {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .legal-card {
+                flex-basis: calc(50% - 10px);
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .legal-card {
+                flex-basis: 100%;
+            }
         }
 
         .legal-card {
             background: var(--card-background);
-            border-radius: 16px;
-            padding: 30px;
+            border-radius: var(--border-radius);
+            padding: 35px 30px;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .legal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.8;
+            transition: var(--transition);
         }
 
         .legal-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .legal-card:hover::before {
+            width: 6px;
         }
 
         .legal-card h3 {
             color: var(--primary-color);
             margin-bottom: 15px;
-            font-size: 1.3em;
+            font-size: 1.4em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         .legal-card p {
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 0.95em;
         }
 
         .legal-link {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             background: var(--gradient);
             color: white;
             text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 14px 20px;
+            border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(10, 132, 255, 0.25);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            width: 100%;
+            max-width: 220px;
+            margin: 0 auto;
+            text-align: center;
+            white-space: nowrap; /* 防止文本换行 */
+            font-size: 0.95em; /* 稍微缩小字体 */
+        }
+
+        .legal-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-accent);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .legal-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4);
+        }
+        
+        .legal-link:hover::before {
+            opacity: 1;
         }
 
         /* 页脚 */
         .footer {
-            background: var(--text-primary);
+            background: linear-gradient(to right, #1D1D1F, #2C2C2E);
             color: white;
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
         }
 
         .footer p {
-            opacity: 0.8;
+            opacity: 0.85;
+            font-size: 1.1em;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
+            body {
+                overflow-x: hidden; /* 防止横向滚动 */
+            }
+            
+            html, body {
+                width: 100%;
+                position: relative;
+            }
+            
             .hero h1 {
                 font-size: 2.5em;
             }
-
+            
             .hero .subtitle {
                 font-size: 1.1em;
             }
-
+            
             .language-switcher {
                 top: 10px;
                 right: 10px;
             }
-
+            
             .features-grid {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -325,13 +594,47 @@
             .section-title {
                 font-size: 2em;
             }
+            
+            .container {
+                width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+                box-sizing: border-box;
+            }
+            
+            .legal-card {
+                min-width: unset;
+                width: 100%;
+                height: auto;
+                min-height: 260px;
+            }
+        }
+        
+        /* 特别窄的屏幕适配 */
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8em;
+            }
+            
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .hero .subtitle {
+                font-size: 1em;
+            }
+            
+            .legal-link {
+                max-width: 180px;
+                padding: 12px 16px;
+            }
         }
 
         /* 动画效果 */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 0.8s ease forwards;
+            transform: translateY(40px);
+            animation: fadeIn 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
         }
 
         @keyframes fadeIn {
@@ -340,17 +643,33 @@
                 transform: translateY(0);
             }
         }
+        
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
 
         .fade-in-delay-1 { animation-delay: 0.2s; }
         .fade-in-delay-2 { animation-delay: 0.4s; }
         .fade-in-delay-3 { animation-delay: 0.6s; }
+        
+        /* 浮动动画效果 */
+        .app-icon {
+            animation: float-subtle 5s ease-in-out infinite;
+        }
+        
+        /* 增强响应式设计 */
+        .container {
+            position: relative;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
     <!-- 语言切换器 -->
     <div class="language-switcher">
-        <button class="lang-btn active" onclick="setLanguage('zh')">中文</button>
-        <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        <button class="lang-btn active" onclick="setLanguage('zh', event)">中文</button>
+        <button class="lang-btn" onclick="setLanguage('en', event)">English</button>
     </div>
 
     <!-- 头部英雄区域 -->
@@ -361,6 +680,11 @@
             </div>
             <h1 id="hero-title">纪时JSTime</h1>
             <p class="subtitle" id="hero-subtitle">记录美好时光的每一刻，让重要的日子永远不被遗忘</p>
+            <div class="app-store-buttons">
+                <a href="https://apps.apple.com/cn/app/%E7%BA%AA%E6%97%B6/id6747433309" class="app-store-button" target="_blank">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store">
+                </a>
+            </div>
         </div>
     </section>
 
@@ -409,36 +733,52 @@
             <h2 class="section-title fade-in" id="legal-title">法律文档</h2>
             <div class="legal-cards">
                 <div class="legal-card fade-in">
-                    <h3 id="privacy-policy-title">隐私政策</h3>
-                    <p id="privacy-policy-desc">了解我们如何收集、使用和保护您的个人信息，确保您的隐私安全。</p>
-                    <a href="privacy-policy.html" class="legal-link" id="privacy-policy-link">
-                        <span>查看隐私政策</span>
-                        <span>→</span>
-                    </a>
+                    <div class="legal-card-content">
+                        <h3 id="privacy-policy-title">隐私政策</h3>
+                        <p id="privacy-policy-desc">了解我们如何收集、使用和保护您的个人信息，确保您的隐私安全。</p>
+                    </div>
+                    <div class="legal-link-container">
+                        <a href="privacy-policy-zh.html" class="legal-link" id="privacy-policy-link">
+                            <span id="privacy-policy-link-text">查看隐私政策</span>
+                            <span>→</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="legal-card fade-in fade-in-delay-1">
-                    <h3 id="terms-title">使用条款</h3>
-                    <p id="terms-desc">详细了解应用的使用条款和订阅相关规定，保障您的合法权益。</p>
-                    <a href="terms-of-service.html" class="legal-link" id="terms-link">
-                        <span>查看使用条款</span>
-                        <span>→</span>
-                    </a>
+                    <div class="legal-card-content">
+                        <h3 id="terms-title">使用条款</h3>
+                        <p id="terms-desc">详细了解应用的使用条款和订阅相关规定，保障您的合法权益。</p>
+                    </div>
+                    <div class="legal-link-container">
+                        <a href="terms-of-service-zh.html" class="legal-link" id="terms-link">
+                            <span id="terms-link-text">查看使用条款</span>
+                            <span>→</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="legal-card fade-in fade-in-delay-1">
-                    <h3 id="terms-title">高级版年费订阅服务协议</h3>
-                    <p id="terms-desc">详细了解应用的高级版年费服务相关规定，保障您的合法权益。</p>
-                    <a href="subscription-agreement.html" class="legal-link" id="terms-link">
-                        <span>查看服务协议</span>
-                        <span>→</span>
-                    </a>
+                    <div class="legal-card-content">
+                        <h3 id="subscription-title">高级版年费订阅服务协议</h3>
+                        <p id="subscription-desc">详细了解应用的高级版年费服务相关规定，保障您的合法权益。</p>
+                    </div>
+                    <div class="legal-link-container">
+                        <a href="subscription-agreement-zh.html" class="legal-link" id="subscription-link">
+                            <span id="subscription-link-text">查看服务协议</span>
+                            <span>→</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="legal-card fade-in fade-in-delay-2">
-                    <h3 id="support-title">技术支持</h3>
-                    <p id="support-desc">遇到问题？查看常见问题解答或联系我们的技术支持团队。</p>
-                    <a href="support.html" class="legal-link" id="support-link">
-                        <span>获取支持</span>
-                        <span>→</span>
-                    </a>
+                    <div class="legal-card-content">
+                        <h3 id="support-title">技术支持</h3>
+                        <p id="support-desc">遇到问题？查看常见问题解答或联系我们的技术支持团队。</p>
+                    </div>
+                    <div class="legal-link-container">
+                        <a href="support.html" class="legal-link" id="support-link">
+                            <span id="support-link-text">获取支持</span>
+                            <span>→</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -448,7 +788,7 @@
     <footer class="footer">
         <div class="container">
             <p id="footer-text">&copy; 2025 纪时JSTime. 保留所有权利。</p>
-        </div>
+    </div>
     </footer>
 
     <script>
@@ -476,13 +816,16 @@
                 'legal-title': '法律文档',
                 'privacy-policy-title': '隐私政策',
                 'privacy-policy-desc': '了解我们如何收集、使用和保护您的个人信息，确保您的隐私安全。',
-                'privacy-policy-link': '查看隐私政策',
+                'privacy-policy-link-text': '查看隐私政策',
                 'terms-title': '使用条款',
                 'terms-desc': '详细了解应用的使用条款和订阅相关规定，保障您的合法权益。',
-                'terms-link': '查看使用条款',
+                'terms-link-text': '查看使用条款',
+                'subscription-title': '高级版年费订阅服务协议',
+                'subscription-desc': '详细了解应用的高级版年费服务相关规定，保障您的合法权益。',
+                'subscription-link-text': '查看服务协议',
                 'support-title': '技术支持',
                 'support-desc': '遇到问题？查看常见问题解答或联系我们的技术支持团队。',
-                'support-link': '获取支持',
+                'support-link-text': '获取支持',
                 'footer-text': '© 2025 纪时JSTime. 保留所有权利。'
             },
             en: {
@@ -507,19 +850,22 @@
                 'legal-title': 'Legal Documents',
                 'privacy-policy-title': 'Privacy Policy',
                 'privacy-policy-desc': 'Learn how we collect, use and protect your personal information to ensure your privacy security.',
-                'privacy-policy-link': 'View Privacy Policy',
+                'privacy-policy-link-text': 'View Privacy Policy',
                 'terms-title': 'Terms of Service',
                 'terms-desc': 'Detailed information about app usage terms and subscription regulations to protect your legal rights.',
-                'terms-link': 'View Terms of Service',
+                'terms-link-text': 'View Terms of Service',
+                'subscription-title': 'Premium Subscription Agreement',
+                'subscription-desc': 'Detailed information about premium subscription terms to protect your legal rights.',
+                'subscription-link-text': 'View Details',
                 'support-title': 'Technical Support',
                 'support-desc': 'Having issues? Check our FAQ or contact our technical support team.',
-                'support-link': 'Get Support',
+                'support-link-text': 'Get Support',
                 'footer-text': '© 2025 JSTime. All rights reserved.'
             }
         };
 
         // 语言切换功能
-        function setLanguage(lang) {
+        function setLanguage(lang, clickEvent) {
             // 更新HTML lang属性
             document.getElementById('html-root').lang = lang === 'zh' ? 'zh-CN' : 'en';
             
@@ -527,7 +873,19 @@
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            // 如果是通过点击触发的，使用点击的目标元素
+            if (clickEvent && clickEvent.target) {
+                clickEvent.target.classList.add('active');
+            } else {
+                // 否则，根据语言选择对应按钮
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if ((lang === 'zh' && btn.innerText === '中文') || 
+                        (lang === 'en' && btn.innerText === 'English')) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
 
             // 更新所有文本内容
             const langData = translations[lang];
@@ -551,15 +909,29 @@
 
         // 更新法律文档链接
         function updateLegalLinks(lang) {
-            const privacyLink = document.querySelector('a[href="privacy-policy.html"]');
-            const termsLink = document.querySelector('a[href="terms-of-service.html"]');
+            const privacyLink = document.getElementById('privacy-policy-link');
+            const termsLink = document.getElementById('terms-link');
+            const subLink = document.getElementById('subscription-link');
+            const supportLink = document.getElementById('support-link');
             
             if (lang === 'zh') {
+                // 设置中文链接
                 if (privacyLink) privacyLink.href = 'privacy-policy-zh.html';
                 if (termsLink) termsLink.href = 'terms-of-service-zh.html';
+                if (subLink) subLink.href = 'subscription-agreement-zh.html';
+                
+                // 更新App Store链接
+                const appStoreLink = document.querySelector('.app-store-button');
+                if (appStoreLink) appStoreLink.href = 'https://apps.apple.com/cn/app/%E7%BA%AA%E6%97%B6/id6747433309';
             } else {
+                // 设置英文链接
                 if (privacyLink) privacyLink.href = 'privacy-policy.html';
                 if (termsLink) termsLink.href = 'terms-of-service.html';
+                if (subLink) subLink.href = 'subscription-agreement.html';
+                
+                // 更新App Store链接
+                const appStoreLink = document.querySelector('.app-store-button');
+                if (appStoreLink) appStoreLink.href = 'https://apps.apple.com/app/jstime/id6747433309';
             }
         }
 
@@ -570,11 +942,8 @@
             const browserLang = navigator.language || navigator.userLanguage;
             const defaultLang = savedLang || (browserLang.startsWith('zh') ? 'zh' : 'en');
 
-            // 设置初始语言
-            if (defaultLang === 'en') {
-                // 如果是英文，需要手动触发切换
-                document.querySelectorAll('.lang-btn')[1].click();
-            }
+            // 直接设置初始语言，不传递事件对象
+            setLanguage(defaultLang, null);
 
             // 添加滚动动画
             const observer = new IntersectionObserver((entries) => {
@@ -606,4 +975,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
